@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML	4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title> chatOnline </title>
+	<meta	name="Generator" content="EditPlus">
+	<meta	name="Author" content="kan">
+	<meta	name="Keywords"	content="">
+	<meta	name="Description" content="">
+	<script type="text/javascript" src="public/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#send").click(function(){
+				var con = {
+					'name':$("#name").val(),
+					'msg':$("#msg").val()
+				};
+				var html = "";
+				$.getJSON(
+				'<{spUrl c=dbOperate a=write}>',
+				con,
+				function(json){
+					$.each(json,function(ajsonIndex,ajson){
+						html += "<strong>" + json['name'] + ":</strong>" + json['msg'] + "<br/>";
+					});
+					$("#display").html("").html(html);
+				});
+				return false;
+			});
+		})
+	</script>
+</head>
+
+<body>
+	<div>
+		<p id="display"></p>
+	</div>
+	<form>
+		name:<input type="text" id="name"/><br/>
+		messages:<input type="text" id="msg" size="50"/><br/>
+		<input type="submit" value="send" id="send"/>
+	</form>
+</body>
+</html>
